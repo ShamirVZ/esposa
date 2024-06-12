@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <style>
+        @keyframes pulse {
+            0% { transform: scale(1, 1); }
+            50% { transform: scale(1.2, 1.2); }
+            100% { transform: scale(1, 1); }
+        }
+
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        @keyframes fadeOut {
+            0% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+
+        @keyframes appear {
+            from { transform: scale(0); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(100vh); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: translateY(-200px); opacity: 0; }
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            font-family: 'Comic Sans MS', cursive;
+            background-color: #fce4ec;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+            position: relative;
+        }
+
+        .heart {
+            position: absolute;
+            color: pink;
+            font-size: 3em;
+            animation: pulse 1s linear infinite;
+        }
+
+        .heart.red {
+            color: red;
+            font-size: 4em;
+            cursor: pointer;
+        }
+
+        #letter {
+            display: none;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 500px;
+            text-align: center;
+            margin-top: 20px;
+            animation: appear 2s forwards;
+            z-index: 10;
+        }
+
+        .floating-heart {
+            position: absolute;
+            color: pink;
+            font-size: 2em;
+            animation: floatUp 5s linear infinite;
+            opacity: 0.5;
+        }
+
+        .floating-heart.red {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="heart red" id="special">&#10084;</div>
+    <div id="letter">
+        <p>
+            Mi amor :3
+            <br><br>
+            Te amo con toda mi alma, tanto que no quiero estar ni un instante contigo y perdóname si a veces soy demasiado empalagoso, es que yo mi amor es demasiado y quiero que lo sepas en cada momento, perdón mi amor si a veces te hice enojar 🥺 
+            <br><br>
+            Te amo tanto mi amor, que no sé qué haría sin ti, voy a hacer todo lo imposible para que estemos por siempre mi amor :3
+            <br><br>
+            la verdad es que yo no me cansaría de decirte lo mucho que te amo, quiero que nunca olvides que te amo para toda la vida, nací para ti y tú eres la dueña de mi vida, TE AMOOOOOOO MUCHOO PRINCESA 💖
+            <br><br>
+             siempre tuyo mi esposa hermosa 💘<span id="letter">&#10084;</span>
+        </p>
+    </div>
+
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var audio = document.getElementById("myAudio");
+            audio.play().catch(function(error) {
+                console.log("Playback prevented: " + error);
+            });
+        });
+
+        document.getElementById('special').onclick = function() {
+            const hearts = document.querySelectorAll('.heart:not(.red)');
+            hearts.forEach(heart => {
+                heart.style.animation = 'fadeOut 2s forwards';
+            });
+            setTimeout(() => {
+                hearts.forEach(heart => heart.remove());
+                document.getElementById('letter').style.display = 'block';
+                createFloatingHearts();
+            }, 2000);
+        };
+
+        function createHearts() {
+            for (let i = 0; i < 50; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.style.left = `${Math.random() * 100}%`;
+                heart.style.top = `${Math.random() * 100}%`;
+                heart.innerHTML = '&#10084;';
+                document.body.appendChild(heart);
+            }
+        }
+
+        function createFloatingHearts() {
+            for (let i = 0; i < 20; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'floating-heart';
+                heart.style.left = `${Math.random() * 100}%`;
+                heart.style.bottom = '-50px';
+                heart.innerHTML = '&#10084;';
+                if (Math.random() > 0.5) {
+                    heart.classList.add('red');
+                }
+                document.body.appendChild(heart);
+            }
+        }
+
+        createHearts();
+    </script>
+</body>
+</html>
